@@ -94,7 +94,7 @@ export default {
         that.visible = false
       } else {
         // 请求后端API服务，请求方法为post，请求体字段为json格式 text
-        axios.post('http://172.21.16.235:8000/api/gpt/textCorrect', {
+        axios.post('http://172.21.108.57:8000/api/gpt/textCorrect', {
           text: that.textarea,
           key: that.input
         }).then((response) => {

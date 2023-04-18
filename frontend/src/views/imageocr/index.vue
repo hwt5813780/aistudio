@@ -158,7 +158,7 @@ export default {
       var form = new FormData()
       form.append('file', that.fileData)
       // 请求后端API服务，请求方法为post
-      axios.post('http://172.21.16.235:8000/api/ocr/crn', form, config).then((response) => {
+      axios.post('http://172.21.108.57:8000/api/ocr/crn', form, config).then((response) => {
         console.log(response)
         that.textarea = response.data.correctionResults
         console.log(that.text)
