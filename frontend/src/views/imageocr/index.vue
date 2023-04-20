@@ -187,7 +187,7 @@ export default {
 
 <style scoped>
 .tip {
-  font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
+  font-family: PingFang SC, Helvetica Neue, Arial, Helvetica, sans-serif;
   font-size: 14px;
   font-weight: normal;
   margin-bottom: 20px;

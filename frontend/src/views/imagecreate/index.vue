@@ -88,7 +88,7 @@ export default {
       } else {
         // 请求后端API服务，请求方法为post，请求体字段为json格式 text
         axios
-          .post("http://172.21.108.57:8000/v1/imageCreate", {
+          .post("http://172.21.108.57:8000/api/gpt/imageCreate", {
             text: that.input, 
             key: that.input
 
@@ -160,7 +160,7 @@ export default {
 
 <style scoped>
 .tip {
-  font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
+  font-family: PingFang SC, Helvetica Neue, Arial, Helvetica, sans-serif;
   font-size: 14px;
   font-weight: normal;
   margin-top: 10px;

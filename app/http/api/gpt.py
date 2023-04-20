@@ -26,7 +26,7 @@ async def index():
 
 
 #  将 YOUR_API_KEY 替换为您的实际 API 密钥
-openai.api_key = "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"
+openai.api_key = "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"
 
 #  设置API请求的URL和参数
 url = "https://api.openai.com/v1/chat/completions"
@@ -117,7 +117,7 @@ async def DocRead(file, key, value):
     try:
         now_time = int(time.mktime(time.localtime(time.time())))
         # 拼接生成随机文件名，注意名称不能包含中文否则后面读取出错
-        docPath = "backend/resources/" + str(now_time) + "_doc." + docType
+        docPath = "storage/image/" + str(now_time) + "_doc." + docType
         print(docPath)
         doc0 = open(docPath, 'wb')
         doc0.write(docBytes)
@@ -168,7 +168,7 @@ async def ImageErrorCorrection(file, key, value):
     try:
         now_time = int(time.mktime(time.localtime(time.time())))
         # 拼接生成随机文件名，注意名称不能包含中文否则后面读取出错
-        imgPath = "backend/resources/" + str(now_time) + "_image." + imgType
+        imgPath = "storage/image/" + str(now_time) + "_image." + imgType
         print(imgPath)
         fout = open(imgPath, 'wb')
         fout.write(imgBytes)
@@ -270,7 +270,7 @@ async def handle_request(document: Document):
 
 
 # 图片识别接口
-@router.post("/gpt/imageCorrect/", status_code=200)
+@router.post("/imageCorrect/", status_code=200)
 # 定义路径操作函数，当接口被访问将调用该函数
 async def handle_request(file: UploadFile, key: str, value: int):
     # 创建一个事件循环
@@ -286,7 +286,7 @@ async def handle_request(file: UploadFile, key: str, value: int):
     return result[0]
 
 # 文档识别接口
-@router.post("/gpt/docCorrect/", status_code=200)
+@router.post("/docCorrect/", status_code=200)
 # 定义路径操作函数，当接口被访问将调用该函数
 async def handle_request(file: UploadFile, key: str, value: int):
     # 创建一个事件循环
@@ -301,7 +301,7 @@ async def handle_request(file: UploadFile, key: str, value: int):
     print(result)
     return result[0]
 
-@router.post("/gpt/imageCreate/", status_code=200)
+@router.post("/imageCreate/", status_code=200)
 # 定义路径操作函数，当接口被访问将调用该函数
 async def handle_request(document: Document):
     # 创建一个事件循环

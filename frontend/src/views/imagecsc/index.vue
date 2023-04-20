@@ -170,7 +170,7 @@ export default {
       var form = new FormData()
       form.append('file', that.fileData)
       // 请求后端API服务，请求方法为post
-      axios.post('http://172.21.108.57:8000/v1/imageCorrect', form, config).then((response) => {
+      axios.post('http://172.21.108.57:8000/api/gpt/imageCorrect', form, config).then((response) => {
         console.log(response)
         that.imgCscResult = response.data.correctionResults
         that.tableData = response.data.correctionResults
@@ -200,7 +200,7 @@ export default {
 
 <style scoped>
 .tip {
-  font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
+  font-family: PingFang SC, Helvetica Neue, Arial, Helvetica, sans-serif;
   font-size: 14px;
   font-weight: normal;
   margin-bottom: 20px;

@@ -55,6 +55,21 @@ export const constantRoutes = [
     }]
   },
   {
+    path: '/wt',
+    component: Layout,
+    redirect: '/wt/aiwt',
+    name: 'Wt',
+    meta: { title: 'AI写作', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'aiwt',
+        name: 'AIwt',
+        component: () => import('@/views/writing/index'),
+        meta: { title: 'AI写作'}
+      }
+    ]
+  },
+  {
     path: '/ocr',
     component: Layout,
     redirect: '/ocr/imageocr',
@@ -65,13 +80,7 @@ export const constantRoutes = [
         path: 'imageocr',
         name: 'Imageocr',
         component: () => import('@/views/imageocr/index'),
-        meta: { title: '非结构识别'}
-      },
-      {
-        path: 'pdfocr',
-        name: 'Pdfocr',
-        component: () => import('@/views/pdfocr/index'),
-        meta: { title: '结构化识别'}
+        meta: { title: 'OCR识别'}
       }
     ]
   },
@@ -113,15 +122,14 @@ export const constantRoutes = [
         path: 'imagecreate',
         name: 'Imagecreate',
         component: () => import('@/views/imagecreate/index'),
-        meta: { title: '图片生成'}
-      },
-      {
-        path: '404',
-        name: '404',
-        component: () => import('@/views/404'),
-        meta: { title: '视频生成'}
+        meta: { title: 'AI图片生成'}
       }
     ]
+  },
+  {
+    path: '/card/:id',
+    name: 'CardDetail',
+    component: () => import('@/views/writing/index2')
   },
 
   // 404 page must be placed at the end !!!
