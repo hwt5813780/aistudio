@@ -54,6 +54,17 @@
         </div>
         <el-input v-model="textarea" type="textarea" :disabled="stage" :rows="11" placeholder="" clearable />
         </div>
+        <div style="padding-top: 10px; padding-bottom: 10px">
+        <el-button type="primary" @click="errorCorrect()" :loading="loading"
+          >开始创作</el-button
+        >
+        <el-button
+          type="basic"
+          style="margin-left: 24px; margin-top: 16px"
+          @click="handleDownload('text-demo')"
+          >导出图片</el-button
+        >
+      </div>
       </div>
     </el-col>
     <el-col
@@ -64,6 +75,7 @@
     <div style="margin:24px;height:90%">
        <v-md-editor v-model="text" height="100%" ></v-md-editor>
     </div>
+    
     </el-col>
   </div>
 </template>
