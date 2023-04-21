@@ -26,7 +26,7 @@ async def index():
 
 
 #  将 YOUR_API_KEY 替换为您的实际 API 密钥
-openai.api_key = "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"
+openai.api_key = "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"
 
 #  设置API请求的URL和参数
 url = "https://api.openai.com/v1/chat/completions"
@@ -78,6 +78,29 @@ async def TextErrorCorrection(document):
         print("异常信息：", e)
         raise HTTPException(status_code=500, detail=str(
             "请求失败，服务器端发生异常！异常信息提示：" + str(e)))
+
+async def pdca(document):
+    try:
+        # 获取要进行识别的文本内容
+        text = document.text
+        print(text)
+        # 精细分句处理以更好处理长文本
+        # data = cut_sent(text) 暂不使用
+        key = document.key
+        # 进行文本识别和标记
+        prompt = text
+        print(key)
+        result = aicreate(prompt)
+        print(result)
+        results = {"message": "success",
+                   "originalText": document.text, "correctionResults": result}
+        return results
+    # 异常处理
+    except Exception as e:
+        print("异常信息：", e)
+        raise HTTPException(status_code=500, detail=str(
+            "请求失败，服务器端发生异常！异常信息提示：" + str(e)))
+
 
 def get_file_content(filePath):
     with open(filePath, 'rb') as fp:
@@ -225,6 +248,33 @@ def chat(prompt):  # 定义一个函数
         # print(exc)  #需要打印出故障
         return "broken"
 
+def aicreate(prompt):  # 定义一个函数
+
+    try:
+        data = {"model": "gpt-3.5-turbo",
+                "temperature": 1,
+                "messages": [
+                    {"role": "system",
+                        "content": "你是一个编写日报的机器人，我会告诉你我今天大概的工作内容，你需要帮我完成日报，日报包括研发项目的标题以及每个研发项目的日报内容，内容包括：工作成果，工时，经验总结，发现问题，改进措施。返回的结果是markdown格式的字符串"},
+                    {"role": "user", "content": prompt}
+                ]
+                }
+        #  发送HTTP请求
+        response = requests.post(url,headers=headers,json=data,proxies=proxies)
+        print(response.text)
+        #  解析响应并输出结果
+        if response.status_code == 200:
+            answer = response.json()[
+                "choices"][0]["message"]["content"].strip()
+        else:
+            raise Exception(
+                f"Request failed with status code {response.text}")
+        return answer
+
+    except Exception as exc:
+        # print(exc)  #需要打印出故障
+        return "broken"
+
 def imagect(prompt):  # 定义一个函数
 
     try:
@@ -309,6 +359,21 @@ async def handle_request(document: Document):
     print('创建事件循环成功')
     # 创建一个协程，用于处理当前请求
     coroutine = ImageCreate(document)
+    print('创建协程成功')
+    # 并行处理当前请求
+    result = await asyncio.gather(coroutine, return_exceptions=True)
+    print('并行处理当前请求成功')
+    print(result)
+    return result[0]
+
+@router.post("/pdca/", status_code=200)
+# 定义路径操作函数，当接口被访问将调用该函数
+async def handle_request(document: Document):
+    # 创建一个事件循环
+    loop = asyncio.get_running_loop()
+    print('创建事件循环成功')
+    # 创建一个协程，用于处理当前请求
+    coroutine = pdca(document)
     print('创建协程成功')
     # 并行处理当前请求
     result = await asyncio.gather(coroutine, return_exceptions=True)

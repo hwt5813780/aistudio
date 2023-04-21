@@ -19,7 +19,7 @@
             />
             <div>
               <span style="height: 30px; line-height: 30px; font-size: 18px"
-                >智能写作模板</span
+                >AI写作</span
               >
               <br />
               <span
@@ -29,7 +29,7 @@
                   font-size: 14px;
                   color: #b6b6b6;
                 "
-                >选择合适的创作类型</span
+                >输入提示词生成AI文案</span
               >
             </div>
           </div>
@@ -37,7 +37,7 @@
       </el-row>
       <div style="padding:24px">
         <div class="tip">
-          模型选择
+          创作类型选择
         </div>
         <el-select v-model="value" class="m-2" placeholder="Select" style="width:100%;margin-bottom:32px">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
@@ -54,6 +54,17 @@
         </div>
         <el-input v-model="textarea" type="textarea" :disabled="stage" :rows="11" placeholder="" clearable />
         </div>
+        <div style="padding-top: 10px; padding-bottom: 10px;width:100%">
+        <el-button
+          type="basic"
+          style="margin-top: 16px;width:36%"
+          @click="handleDownload('text-demo')"
+          >返回首页</el-button
+        >
+        <el-button type="primary" @click="errorCorrect()" :loading="loading" style="width: 60%;"
+          ><i class="el-icon-edit" style="margin-right:12px;"></i>开始创作</el-button
+        >
+      </div>
       </div>
     </el-col>
     <el-col
@@ -64,18 +75,27 @@
     <div style="margin:24px;height:90%">
        <v-md-editor v-model="text" height="100%" ></v-md-editor>
     </div>
+    
     </el-col>
   </div>
 </template>
 
 <script>
 import { ref } from 'vue'
+import axios from "axios";
 export default {
   data() {
     return {
       activeMenu: "1",
-      text: '',
+      textarea: "",
+      text: "",
+      loading:false,
       value: ref(1),
+      input: "",
+      result: "",
+      stage: false,
+      visible: false,
+      result: "",
       options: [
         {
           value: 1,
@@ -126,11 +146,52 @@ export default {
     };
   },
   methods: {
-      openMDE() {
-      this.mde = new SimpleMDE({
-        element: this.$refs.textarea,
-        spellChecker: false
-      })},
+    errorCorrect() {
+      var that = this;
+      that.loading = true;
+      var key = that.textarea;
+      console.log(key)
+      if (key === "") {
+        this.$message({
+          showClose: true,
+          message: "输入内容不能为空",
+          type: "warning",
+        });
+        that.result = "";
+      } else {
+        // 请求后端API服务，请求方法为post，请求体字段为json格式 text
+        axios
+          .post("http://127.0.0.1:8000/api/gpt/pdca", {
+            text: that.textarea, 
+            key: that.textarea
+
+          })
+          .then((response) => {
+            console.log(response);
+            that.text = response.data.correctionResults;
+            console.log(that.imageUrl);
+            that.visible = true;
+            that.loading = false;
+            that.$message({
+              showClose: true,
+              message: "Success！",
+              type: "success",
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+            that.result = "";
+            that.visible = false;
+            that.$message({
+              showClose: true,
+              message: "请求出现异常！",
+              type: "error",
+            });
+          });
+      }
+    },
+
+  
     handleMenuSelect(index) {
       this.activeMenu = index;
       if (index === "1") {
@@ -229,4 +290,17 @@ export default {
   font-weight: normal;
   margin-bottom: 20px;
 }
+/* 设置渐变色背景 */
+.el-button--primary {
+  background: linear-gradient(to right, #00bfff, #1e90ff);
+  border-color: #1e90ff; /* 添加边框颜色以使其更加突出 */
+}
+
+/* 更改鼠标悬停颜色 */
+.el-button--primary:hover {
+  background: linear-gradient(to right, #00bfff, #1e90ff);
+  border-color: #00bfff;
+  filter: brightness(110%); /* 使颜色减淡 50% */
+}
+
 </style>
