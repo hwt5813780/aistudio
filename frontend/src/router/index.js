@@ -51,7 +51,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '主页', icon: 'el-icon-s-home' }
+      meta: { title: '主页', icon: 'el-icon-monitor' }
     }]
   },
   {
@@ -59,7 +59,7 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/wt/aiwt',
     name: 'Wt',
-    meta: { title: 'AI写作', icon: 'el-icon-s-help' },
+    meta: { title: 'AI写作', icon: 'el-icon-edit-outline' },
     children: [
       {
         path: 'aiwt',
@@ -74,7 +74,7 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/ocr/imageocr',
     name: 'Ocr',
-    meta: { title: 'OCR识别', icon: 'el-icon-s-help' },
+    meta: { title: 'OCR识别', icon: 'el-icon-c-scale-to-original' },
     children: [
       {
         path: 'imageocr',
@@ -89,7 +89,7 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/csc/onlinecsc',
     name: 'Csc',
-    meta: { title: '信息提取', icon: 'el-icon-s-help' },
+    meta: { title: '信息提取', icon: 'el-icon-news' },
     children: [
       {
         path: 'documentcsc',
@@ -116,7 +116,7 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/aigc/imagecreate',
     name: 'Aigc',
-    meta: { title: 'AI创作', icon: 'el-icon-s-help' },
+    meta: { title: 'AI创作', icon: 'el-icon-edit' },
     children: [
       {
         path: 'imagecreate',

@@ -1,8 +1,14 @@
 <template>
   <div class="home">
-    <div class="header">
-      <h1 class="title">美络 AI Studio</h1>
-      <p class="description">Your go-to platform for all things AI</p>
+    
+    <div class="header" style="position: relative;">
+      <video class="module-other-meet-banner-video-loop muted" style="height: 428px;" playsinline="" autoplay="" loop="" muted="" src="https://dscache.tencent-cloud.cn/upload/uploader/new-fa6ec6532891ae3296cad3502bed93eebc5a1980.mp4">
+                </video>
+      <h1 class="title" style="position: absolute; top: 28%; left: 32.8%; transform: translate(-50%, -50%); font-size: 36px;">美络 AI-Studio</h1>
+      <p class="description" style="position: absolute; top: 44%; left: 36.7%; transform: translate(-50%, -50%); font-size: 18px;color: #666">轻量人工智能工具包 集成OpenAI的API的选择器项</p>
+      <el-button type="primary" @click="errorCorrect()" :loading="loading" style="position: absolute; top: 64%; left: 30.4%; transform: translate(-50%, -50%); font-size: 14px;color: white"
+          ><i class="el-icon-edit" style="margin-right:12px;"></i>开始创作</el-button
+        >
     </div>
     <div class="content">
       <el-card class="card" @click="goToPage1">
@@ -57,7 +63,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 0;
+  padding:  0;
 }
 
 .header {
@@ -67,7 +73,7 @@ export default {
 
 .title {
   font-size: 24px;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .description {
@@ -102,5 +108,17 @@ export default {
 
 .card-body p {
   font-size: 14px;
+}
+/* 设置渐变色背景 */
+.el-button--primary {
+  background: linear-gradient(to right, #00bfff, #1e90ff);
+  border-color: #5daeff; /* 添加边框颜色以使其更加突出 */
+}
+
+/* 更改鼠标悬停颜色 */
+.el-button--primary:hover {
+  background: linear-gradient(to right, #00bfff, #1e90ff);
+  border-color: #00bfff;
+  filter: brightness(110%); /* 使颜色减淡 50% */
 }
 </style>

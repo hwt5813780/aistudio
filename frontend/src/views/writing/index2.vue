@@ -294,7 +294,7 @@ export default {
 /* 设置渐变色背景 */
 .el-button--primary {
   background: linear-gradient(to right, #00bfff, #1e90ff);
-  border-color: #1e90ff; /* 添加边框颜色以使其更加突出 */
+  border-color: #5aadff; /* 添加边框颜色以使其更加突出 */
 }
 
 /* 更改鼠标悬停颜色 */
