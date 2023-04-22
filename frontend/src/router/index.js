@@ -127,9 +127,10 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/card/:id',
+    path: '/aiwriting/',
     name: 'CardDetail',
-    component: () => import('@/views/writing/index2')
+    component: () => import('@/views/writing/index2'),
+    props: true // 开启 props，使得 $route.params 会自动传递给组件的 props
   },
 
   // 404 page must be placed at the end !!!

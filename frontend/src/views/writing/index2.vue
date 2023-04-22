@@ -18,7 +18,7 @@
               style="height: 96px; width: 96px"
             />
             <div>
-              <span style="height: 30px; line-height: 30px; font-size: 18px"
+              <span style="height: 30px; line-height: 30px; font-size: 16px"
                 >AI写作</span
               >
               <br />
@@ -37,14 +37,14 @@
       </el-row>
       <div style="padding:24px">
         <div class="tip">
-          创作类型选择
+          创作模板选择
         </div>
         <el-select v-model="value" class="m-2" placeholder="Select" style="width:100%;margin-bottom:32px">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
         <div >
           <div class="tip">
-          模型选择
+          项目名称
         </div>
         <el-select v-model="value" class="m-2" placeholder="Select" style="width:100%;margin-bottom:32px">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
@@ -84,6 +84,7 @@
 import { ref } from 'vue'
 import axios from "axios";
 export default {
+  props: ['cardId'], // 接收 cardId 作为 props
   data() {
     return {
       activeMenu: "1",
