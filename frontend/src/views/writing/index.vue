@@ -10,7 +10,7 @@
                 margin-bottom: 12px;
                 border-radius: 10px;
               ">
-            <img src="../../../src/assets/img/5.png" style="height: 96px; width: 96px" />
+            <img src="@/assets/img/5.png" style="height: 96px; width: 96px" />
             <div>
               <span style="height: 30px; line-height: 30px; font-size: 16px">智能写作模板</span>
               <br />
@@ -58,7 +58,7 @@
       
 
       <div class="card-container">
-        <el-card class="card" v-for="card in filteredCards" :key="card.id"
+        <el-card class="card2" v-for="card in filteredCards" :key="card.id"
           style="margin-top: 24px; margin-left: 24px; width: 256px" @click.native="goToCardDetail(card.id)"
           :body-style="{ padding: '0px' }">
           <img :src="card.img" style="height: 156px;object-fit: cover; width: 100%" />
@@ -189,12 +189,12 @@ export default {
   line-height: 44px;
 }
 
-.card {
+.card2 {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
-.card:hover {
+.card2:hover {
   box-shadow: 0px 12px 30px rgba(6, 15, 36, 0.2);
   cursor: pointer;
 }

@@ -13,8 +13,9 @@
               border-radius: 10px;
             "
           >
+          
             <img
-              src="../../../src/assets/img/5.png"
+              src="@/assets/img/5.png"
               style="height: 96px; width: 96px"
             />
             <div>
@@ -32,6 +33,7 @@
                 >输入提示词生成AI文案</span
               >
             </div>
+            
           </div>
         </el-col>
       </el-row>
@@ -40,17 +42,21 @@
           创作模板选择
         </div>
         <el-select v-model="value" class="m-2" placeholder="Select" style="width:100%;margin-bottom:32px">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+          <el-option v-for="item in options0" :key="item.value" :disabled="item.disabled" :label="item.label" :value="item.value" />
         </el-select>
         <div >
-          <div class="tip">
+          <div class="tip" v-if="value === 1">
           项目名称
         </div>
-        <el-select v-model="value" class="m-2" placeholder="Select" style="width:100%;margin-bottom:32px">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+        <el-select v-model="value1" v-if="value === 1" class="m-2" placeholder="Select" style="width:100%;margin-bottom:32px">
+          <el-option v-for="item in options1" :key="item.value1" :label="item.label" :value="item.value1" />
         </el-select>
+        <div class="tip" v-if="value === 2">
+          团建主题
+        </div>
+        <el-input v-model="input" v-if="value === 2" type="input" :disabled="stage" :rows="11" placeholder="" style="width:100%;margin-bottom:32px" clearable />
         <div class="tip">
-          提示语句
+           {{ contenttip }}
         </div>
         <el-input v-model="textarea" type="textarea" :disabled="stage" :rows="11" placeholder="" clearable />
         </div>
@@ -84,64 +90,76 @@
 import { ref } from 'vue'
 import axios from "axios";
 export default {
+  computed: {
+    contenttip() {
+      // 根据value属性的值返回一个新的字符串
+     switch (this.value) {
+        case 1:
+          return '工作概况';
+        case 2:
+          return '提示信息';
+        case 3:
+          return '调研方向';
+        default:
+          return '';
+      }
+    },
+  },
   props: ['cardId'], // 接收 cardId 作为 props
   data() {
     return {
+      vueValue: process.env.VUE_APP_VARIABLE,
       activeMenu: "1",
       textarea: "",
       text: "",
       loading:false,
       value: ref(1),
+      value1: ref(1),
       input: "",
       result: "",
       stage: false,
       visible: false,
       result: "",
-      options: [
+      options0: [
         {
           value: 1,
-          label: '日报/周报/月报',
+          label: 'PDCA研发版',
+          contenttip: '工作概况'
         },
         {
           value: 2,
-          label: '调研报告',
-        }
+          label: '团建新闻稿',
+          contenttip: '提示信息'
+        },
+        {
+          value: 3,
+          label: '竞品调研',
+          contenttip: '调研方向'
+        },
+        {
+          value: 4,
+          label: 'AI算命',
+          disabled: true
+        },
+        {
+          value: 5,
+          label: '产品介绍',
+          disabled: true
+        },
+        {
+          value: 6,
+          label: '营销文案',
+          disabled: true
+        },
       ],
-      cards: [
+      options1: [
         {
-          id: 1,
-          title: "日报/周报/月报",
-          description: "根据工作内容生成日报/周报/月报",
+          value1: 1,
+          label: 'RPA自动化用工技术研究',
         },
         {
-          id: 2,
-          icon: "el-icon-s-help",
-          title: "卡片二",
-          description: "这是第二个卡片的说明文字。",
-        },
-        {
-          id: 3,
-          icon: "el-icon-s-help",
-          title: "卡片二",
-          description: "这是第二个卡片的说明文字。",
-        },
-        {
-          id: 4,
-          icon: "el-icon-s-help",
-          title: "卡片二",
-          description: "这是第二个卡片的说明文字。",
-        },
-        {
-          id: 5,
-          icon: "el-icon-s-help",
-          title: "卡片二",
-          description: "这是第二个卡片的说明文字。",
-        },
-        {
-          id: 6,
-          icon: "el-icon-s-help",
-          title: "卡片二",
-          description: "这是第二个卡片的说明文字。",
+          value1: 2,
+          label: '文件服务',
         },
       ],
     };
@@ -150,9 +168,11 @@ export default {
     errorCorrect() {
       var that = this;
       that.loading = true;
-      var key = that.textarea;
-      console.log(key)
-      if (key === "") {
+      var textarea = that.textarea;
+      var value = that.value;
+      var value1 = that.value1;
+      console.log(textarea)
+      if (textarea === ""||value1==="") {
         this.$message({
           showClose: true,
           message: "输入内容不能为空",
@@ -163,9 +183,9 @@ export default {
         // 请求后端API服务，请求方法为post，请求体字段为json格式 text
         axios
           .post("http://127.0.0.1:8000/api/gpt/pdca", {
-            text: that.textarea, 
-            key: that.textarea
-
+            value: that.value, 
+            value1: that.value1,
+            textarea: that.textarea
           })
           .then((response) => {
             console.log(response);
@@ -189,29 +209,6 @@ export default {
               type: "error",
             });
           });
-      }
-    },
-
-  
-    handleMenuSelect(index) {
-      this.activeMenu = index;
-      if (index === "1") {
-        this.cards = [
-          {
-            id: 1,
-            title: "日报/周报/月报",
-            description: "根据工作内容生成日报/周报/月报",
-          },
-        ];
-      } else if (index === "2") {
-        this.cards = [
-          {
-            id: 2,
-            icon: "el-icon-s-help",
-            title: "卡片二",
-            description: "这是第二个卡片的说明文字。",
-          },
-        ];
       }
     },
   },

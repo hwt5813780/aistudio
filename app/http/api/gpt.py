@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends,FastAPI, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, FastAPI, HTTPException, UploadFile
 
 from app.http.deps import get_db
 from app.models.user import User
@@ -19,10 +19,10 @@ router = APIRouter(
     prefix="/gpt"
 )
 
+
 @router.get("/")
 async def index():
     return "gpt index"
-
 
 
 #  将 YOUR_API_KEY 替换为您的实际 API 密钥
@@ -37,10 +37,13 @@ headers = {"authority": "api.openai.com",
            "Authorization": "Bearer {}".format(openai.api_key)
            }
 
-proxies= {
-    "http":"http://127.0.0.1:7890",
-    "https":"http://127.0.0.1:7890",
+proxies = {
+    "http": "http://127.0.0.1:7890",
+    "https": "http://127.0.0.1:7890",
 }
+
+
+
 
 async def ImageCreate(document):
     try:
@@ -56,6 +59,7 @@ async def ImageCreate(document):
         print("异常信息：", e)
         raise HTTPException(status_code=500, detail=str(
             "请求失败，服务器端发生异常！异常信息提示：" + str(e)))
+
 
 async def TextErrorCorrection(document):
     try:
@@ -78,6 +82,7 @@ async def TextErrorCorrection(document):
         print("异常信息：", e)
         raise HTTPException(status_code=500, detail=str(
             "请求失败，服务器端发生异常！异常信息提示：" + str(e)))
+
 
 async def pdca(document):
     try:
@@ -105,6 +110,7 @@ async def pdca(document):
 def get_file_content(filePath):
     with open(filePath, 'rb') as fp:
         return fp.read()
+
 
 class CommonOcr(object):
     def __init__(self, img_path):
@@ -163,7 +169,6 @@ async def DocRead(file, key, value):
         print("文件上传成功！")
         prompt = 'A：' + txt + '//B：' + key
         new_list = chat(prompt)
-        
 
         # 接口结果返回
         print(new_list)
@@ -197,7 +202,7 @@ async def ImageErrorCorrection(file, key, value):
         fout.write(imgBytes)
         fout.close()
         print("文件上传成功！")
-        result = CommonOcr(imgPath) 
+        result = CommonOcr(imgPath)
         data = json.loads(result.recognize())
         lines = data['result']['lines']
         results = ' '.join(line['text'] for line in lines)
@@ -208,7 +213,7 @@ async def ImageErrorCorrection(file, key, value):
         # 接口结果返回
         print(new_list)
         results1 = {"message": "success",
-                   "orcResult": "str(ocr_image_results[0])", "correctionResults": new_list}
+                    "orcResult": "str(ocr_image_results[0])", "correctionResults": new_list}
         return results1
     # 异常处理
     except Exception as e:
@@ -232,7 +237,8 @@ def chat(prompt):  # 定义一个函数
                 ]
                 }
         #  发送HTTP请求
-        response = requests.post(url,headers=headers,json=data,proxies=proxies)
+        response = requests.post(url, headers=headers,
+                                 json=data, proxies=proxies)
         print(response.text)
         #  解析响应并输出结果
         if response.status_code == 200:
@@ -248,7 +254,8 @@ def chat(prompt):  # 定义一个函数
         # print(exc)  #需要打印出故障
         return "broken"
 
-def aicreate(prompt):  # 定义一个函数
+
+def aicreate(index,prompt):  # 定义一个函数
 
     try:
         data = {"model": "gpt-3.5-turbo",
@@ -260,7 +267,8 @@ def aicreate(prompt):  # 定义一个函数
                 ]
                 }
         #  发送HTTP请求
-        response = requests.post(url,headers=headers,json=data,proxies=proxies)
+        response = requests.post(url, headers=headers,
+                                 json=data, proxies=proxies)
         print(response.text)
         #  解析响应并输出结果
         if response.status_code == 200:
@@ -275,17 +283,19 @@ def aicreate(prompt):  # 定义一个函数
         # print(exc)  #需要打印出故障
         return "broken"
 
+
 def imagect(prompt):  # 定义一个函数
 
     try:
         data = {
-          "prompt": prompt,
-          "n": 1,
-          "size": "512x512"
+            "prompt": prompt,
+            "n": 1,
+            "size": "512x512"
         }
 
-        response = requests.post(url2,headers=headers,json=data,proxies=proxies)
-        imageurl=response.json()["data"][0]["url"]
+        response = requests.post(
+            url2, headers=headers, json=data, proxies=proxies)
+        imageurl = response.json()["data"][0]["url"]
         print(imageurl)
         return imageurl
     except Exception as exc:
@@ -293,10 +303,10 @@ def imagect(prompt):  # 定义一个函数
         return "broken"
 
 
-
 class Document(BaseModel):
     text: str
     key: str
+    value: int
 
 # 定义路径操作装饰器：POST方法 + API接口路径
 
@@ -336,6 +346,8 @@ async def handle_request(file: UploadFile, key: str, value: int):
     return result[0]
 
 # 文档识别接口
+
+
 @router.post("/docCorrect/", status_code=200)
 # 定义路径操作函数，当接口被访问将调用该函数
 async def handle_request(file: UploadFile, key: str, value: int):
@@ -351,6 +363,7 @@ async def handle_request(file: UploadFile, key: str, value: int):
     print(result)
     return result[0]
 
+
 @router.post("/imageCreate/", status_code=200)
 # 定义路径操作函数，当接口被访问将调用该函数
 async def handle_request(document: Document):
@@ -365,6 +378,7 @@ async def handle_request(document: Document):
     print('并行处理当前请求成功')
     print(result)
     return result[0]
+
 
 @router.post("/pdca/", status_code=200)
 # 定义路径操作函数，当接口被访问将调用该函数
