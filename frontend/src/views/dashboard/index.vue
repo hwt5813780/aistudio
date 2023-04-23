@@ -15,7 +15,7 @@
         style="
           position: absolute;
           top: 28%;
-          left: 33.1%;
+          left: 32.8%;
           transform: translate(-50%, -50%);
           font-size: 36px;
         "

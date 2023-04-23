@@ -26,7 +26,7 @@ async def index():
 
 
 #  将 YOUR_API_KEY 替换为您的实际 API 密钥
-openai.api_key = "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"
+openai.api_key = "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"
 
 #  设置API请求的URL和参数
 url = "https://api.openai.com/v1/chat/completions"
@@ -41,8 +41,6 @@ proxies = {
     "http": "http://127.0.0.1:7890",
     "https": "http://127.0.0.1:7890",
 }
-
-
 
 
 async def ImageCreate(document):
@@ -87,18 +85,17 @@ async def TextErrorCorrection(document):
 async def pdca(document):
     try:
         # 获取要进行识别的文本内容
-        text = document.text
-        print(text)
-        # 精细分句处理以更好处理长文本
-        # data = cut_sent(text) 暂不使用
-        key = document.key
+        value = document.value
+        input = document.input
+        textarea = document.textarea
+
+        print(textarea)
         # 进行文本识别和标记
-        prompt = text
-        print(key)
-        result = aicreate(prompt)
+        prompt = textarea
+        result = aicreate(value, input, prompt)
         print(result)
         results = {"message": "success",
-                   "originalText": document.text, "correctionResults": result}
+                   "originalText": textarea, "correctionResults": result}
         return results
     # 异常处理
     except Exception as e:
@@ -255,17 +252,37 @@ def chat(prompt):  # 定义一个函数
         return "broken"
 
 
-def aicreate(index,prompt):  # 定义一个函数
+def aicreate(value, input, prompt):  # 定义一个函数
 
     try:
-        data = {"model": "gpt-3.5-turbo",
-                "temperature": 1,
-                "messages": [
-                    {"role": "system",
-                        "content": "你是一个编写日报的机器人，我会告诉你我今天大概的工作内容，你需要帮我完成日报，日报包括研发项目的标题以及每个研发项目的日报内容，内容包括：工作成果，工时，经验总结，发现问题，改进措施。返回的结果是markdown格式的字符串"},
-                    {"role": "user", "content": prompt}
-                ]
-                }
+        data={}
+        if value == 1:
+            data = {"model": "gpt-3.5-turbo",
+                    "temperature": 1,
+                    "messages": [
+                        {"role": "system",
+                            "content": "你是一个编写日报的机器人，我会告诉你我今天大概的工作内容，你需要帮我完成markdown格式的日报，日报包括研发项目的标题以及每个研发项目的日报内容，内容包括：工作成果，工时，经验总结，发现问题，改进措施。"},
+                        {"role": "user", "content": "项目标题："+input+"，工作概述："+prompt}
+                    ]
+                    }
+        elif value == 2:
+            data = {"model": "gpt-3.5-turbo",
+                    "temperature": 1,
+                    "messages": [
+                        {"role": "system",
+                         "content": "你是一个编写团建活动报告的机器人，我会告诉你我团建的主题和其他提示信息，你需要帮我完成markdown格式的团建活动报告的编写，内容要包括活动日期，参加人员，过程，活动的心得体会等等"},
+                        {"role": "user", "content": "团建活动标题："+input+"，活动内容提示："+prompt}
+                    ]
+                    }
+        elif value == 3:
+            data = {"model": "gpt-3.5-turbo",
+                    "temperature": 1,
+                    "messages": [
+                        {"role": "system",
+                         "content": "你是一个调研竞品的机器人，我会告诉你我调研的一些方向，你需要帮我完成markdown格式的产品调研报告"},
+                        {"role": "user", "content": prompt}
+                    ]
+                    }
         #  发送HTTP请求
         response = requests.post(url, headers=headers,
                                  json=data, proxies=proxies)
@@ -304,9 +321,9 @@ def imagect(prompt):  # 定义一个函数
 
 
 class Document(BaseModel):
-    text: str
-    key: str
+    textarea: str
     value: int
+    input: str
 
 # 定义路径操作装饰器：POST方法 + API接口路径
 
