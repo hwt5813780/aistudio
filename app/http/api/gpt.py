@@ -26,7 +26,7 @@ async def index():
 
 
 #  将 YOUR_API_KEY 替换为您的实际 API 密钥
-openai.api_key = "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"
+openai.api_key = "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"
 
 #  设置API请求的URL和参数
 url = "https://api.openai.com/v1/chat/completions"
@@ -255,13 +255,13 @@ def chat(prompt):  # 定义一个函数
 def aicreate(value, input, prompt):  # 定义一个函数
 
     try:
-        data={}
+        data = {}
         if value == 1:
             data = {"model": "gpt-3.5-turbo",
                     "temperature": 1,
                     "messages": [
                         {"role": "system",
-                            "content": "你是一个编写日报的机器人，我会告诉你我今天大概的工作内容，你需要帮我完成markdown格式的日报，日报包括研发项目的标题以及每个研发项目的日报内容，内容包括：工作成果，工时，经验总结，发现问题，改进措施。"},
+                            "content": "你是一个编写日报的机器人，我会告诉你我今天大概的工作内容，你需要帮我完成markdown格式的日报，不需要显示日期，日报的内容需要包括以下这些内容的详细说明：工作成果，工时，经验总结，发现问题，改进措施。"},
                         {"role": "user", "content": "项目标题："+input+"，工作概述："+prompt}
                     ]
                     }
@@ -276,10 +276,10 @@ def aicreate(value, input, prompt):  # 定义一个函数
                     }
         elif value == 3:
             data = {"model": "gpt-3.5-turbo",
-                    "temperature": 1,
+                    "top_p": 0,
                     "messages": [
                         {"role": "system",
-                         "content": "你是一个调研竞品的机器人，我会告诉你我调研的一些方向，你需要帮我完成markdown格式的产品调研报告"},
+                         "content": "你是一个分析体检健康数据的机器人，我会告诉你体检者的一些数据指标，你需要根据指标帮我完成markdown格式的专业健康分析报告，包括每个指标的解读，每项指标检测结果的分析说明，造成结果数值的可能原因以及可能的病症，以及针对每项结果的合理化建议"},
                         {"role": "user", "content": prompt}
                     ]
                     }

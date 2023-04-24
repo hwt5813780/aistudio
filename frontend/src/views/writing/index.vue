@@ -3,72 +3,140 @@
     <el-col :span="5">
       <el-row>
         <el-col :span="24">
-          <div style="
-                display: flex;
-                align-items: center;
-                background-color: #f8fafc;
-                margin-bottom: 12px;
-                border-radius: 10px;
-              ">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              background-color: #f8fafc;
+              margin-bottom: 12px;
+              border-radius: 10px;
+            "
+          >
             <img src="@/assets/img/5.png" style="height: 96px; width: 96px" />
             <div>
-              <span style="height: 30px; line-height: 30px; font-size: 16px">智能写作模板</span>
+              <span style="height: 30px; line-height: 30px; font-size: 16px"
+                >智能写作模板</span
+              >
               <br />
-              <span style="
-                    height: 30px;
-                    line-height: 30px;
-                    font-size: 14px;
-                    color: #b6b6b6;
-                  ">选择合适的创作类型</span>
+              <span
+                style="
+                  height: 30px;
+                  line-height: 30px;
+                  font-size: 14px;
+                  color: #b6b6b6;
+                "
+                >选择合适的创作类型</span
+              >
             </div>
           </div>
         </el-col>
       </el-row>
       <div class="menu-container">
-        <el-menu class="menu" :default-active="activeMenu" @select="handleMenuSelect" text-color="#B2B2B2"
-          active-text-color="#131344">
-          <el-menu-item index="0" class="selected-menu" style="margin-bottom: 6px">
+        <el-menu
+          class="menu"
+          :default-active="activeMenu"
+          @select="handleMenuSelect"
+          text-color="#B2B2B2"
+          active-text-color="#131344"
+        >
+          <el-menu-item
+            index="0"
+            class="selected-menu"
+            style="margin-bottom: 6px"
+          >
             <span class="menu-text">全部模板</span>
           </el-menu-item>
-          <el-menu-item index="1" class="selected-menu" style="margin-bottom: 6px">
-            <span class="menu-text"><i class="el-icon-s-order"></i>报告写作</span>
+          <el-menu-item
+            index="1"
+            class="selected-menu"
+            style="margin-bottom: 6px"
+          >
+            <span class="menu-text"
+              ><i class="el-icon-s-order"></i>报告写作</span
+            >
           </el-menu-item>
-          <el-menu-item index="2" class="selected-menu" style="margin-bottom: 6px">
-            <span class="menu-text"><i class="el-icon-platform-eleme"></i>社媒写作</span>
+          <el-menu-item
+            index="2"
+            class="selected-menu"
+            style="margin-bottom: 6px"
+          >
+            <span class="menu-text"
+              ><i class="el-icon-platform-eleme"></i>社媒写作</span
+            >
           </el-menu-item>
-          <el-menu-item index="3" class="selected-menu" style="margin-bottom: 6px">
-            <span class="menu-text"><i class="el-icon-s-custom"></i>教育（论文）</span>
+          <el-menu-item
+            index="3"
+            class="selected-menu"
+            style="margin-bottom: 6px"
+          >
+            <span class="menu-text"
+              ><i class="el-icon-s-custom"></i>教育（论文）</span
+            >
           </el-menu-item>
-          <el-menu-item index="4" class="selected-menu" style="margin-bottom: 6px">
+          <el-menu-item
+            index="4"
+            class="selected-menu"
+            style="margin-bottom: 6px"
+          >
             <span class="menu-text"><i class="el-icon-s-comment"></i>电商</span>
           </el-menu-item>
-          <el-menu-item index="5" class="selected-menu" style="margin-bottom: 6px">
-            <span class="menu-text"><i class="el-icon-s-marketing"></i>营销广告</span>
+          <el-menu-item
+            index="5"
+            class="selected-menu"
+            style="margin-bottom: 6px"
+          >
+            <span class="menu-text"
+              ><i class="el-icon-s-marketing"></i>营销广告</span
+            >
           </el-menu-item>
-          <el-menu-item index="6" class="selected-menu" style="margin-bottom: 6px">
-            <span class="menu-text"><i class="el-icon-s-management"></i>文学</span>
+          <el-menu-item
+            index="6"
+            class="selected-menu"
+            style="margin-bottom: 6px"
+          >
+            <span class="menu-text"
+              ><i class="el-icon-s-management"></i>文学</span
+            >
           </el-menu-item>
-          <el-menu-item index="7" class="selected-menu" style="margin-bottom: 6px">
-            <span class="menu-text"><i class="el-icon-camera-solid"></i>短视频文案</span>
+          <el-menu-item
+            index="7"
+            class="selected-menu"
+            style="margin-bottom: 6px"
+          >
+            <span class="menu-text"
+              ><i class="el-icon-camera-solid"></i>短视频文案</span
+            >
           </el-menu-item>
         </el-menu>
       </div>
     </el-col>
-    <el-col :span="19" style="border-left: 1px solid #e6e6e6; background-color: #f8fafc" class="el-col-right">
-      
-
+    <el-col
+      :span="19"
+      style="border-left: 1px solid #e6e6e6; background-color: #f8fafc"
+      class="el-col-right"
+    >
       <div class="card-container">
-        <el-card class="card2" v-for="card in filteredCards" :key="card.id"
-          style="margin-top: 24px; margin-left: 24px; width: 256px" @click.native="goToCardDetail(card.id)"
-          :body-style="{ padding: '0px' }">
-          <img :src="card.img" style="height: 156px;object-fit: cover; width: 100%" />
-          <div style="
-                padding-top: 12px;
-                padding-left: 16px;
-                padding-right: 16px;
-                padding-bottom: 6px;
-                font-size: 14px;
-              ">
+        <el-card
+          class="card2"
+          v-for="card in filteredCards"
+          :key="card.id"
+          style="margin-top: 24px; margin-left: 24px; width: 256px"
+          @click.native="goToCardDetail(card.id)"
+          :body-style="{ padding: '0px' }"
+        >
+          <img
+            :src="card.img"
+            style="height: 156px; object-fit: cover; width: 100%"
+          />
+          <div
+            style="
+              padding-top: 12px;
+              padding-left: 16px;
+              padding-right: 16px;
+              padding-bottom: 6px;
+              font-size: 14px;
+            "
+          >
             <span style="color: #000; font-size: 14px">{{ card.title }}</span>
             <p style="color: #9999; font-size: 14px">{{ card.description }}</p>
           </div>
@@ -100,8 +168,8 @@ export default {
         {
           id: 3,
           icon: "el-icon-s-help",
-          title: "竞品调研",
-          description: "利用AI调研相关竞品",
+          title: "健康报告",
+          description: "通过数据指标生成健康报告",
           img: require("@/assets/img/invest.png"),
         },
         {
@@ -126,13 +194,21 @@ export default {
           img: require("@/assets/img/marketing.jpg"),
         },
       ],
-      selectedIds: [1, 2, 3, 4, 5, 6] // 选择的id数组，用来进行筛选
+      selectedIds: [1, 2, 3, 4, 5, 6], // 选择的id数组，用来进行筛选
     };
   },
   methods: {
     goToCardDetail(cardId) {
-      this.$router.push({ name: 'CardDetail', params: { id: cardId } });
+      if (cardId === 1 || cardId === 2 || cardId === 3) {
+        this.$router.push({ name: "CardDetail", params: { cardId: cardId } });
+      } else {
+        this.$message({
+          message: "当前的模板暂未开放",
+          type: "warning",
+        });
+      }
     },
+
     handleMenuSelect(index) {
       this.activeMenu = index;
       if (index === "0") {
@@ -157,10 +233,9 @@ export default {
   computed: {
     filteredCards() {
       // 使用filter方法筛选cards数组
-      return this.cards.filter(card => this.selectedIds.includes(card.id));
-    }
+      return this.cards.filter((card) => this.selectedIds.includes(card.id));
+    },
   },
-
 };
 </script>
 

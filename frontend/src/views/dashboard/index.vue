@@ -10,14 +10,19 @@
         muted=""
         src="@/assets/video/dashboard.mp4"
       ></video>
+      <div style="
+          position: absolute;
+          top: 46%;
+          left: 37%;
+          transform: translate(-50%, -50%);
+          font-size: 36px;
+          text-align: left
+        ">
       <h1
         class="title"
         style="
-          position: absolute;
-          top: 28%;
-          left: 32.8%;
-          transform: translate(-50%, -50%);
           font-size: 36px;
+          padding-bottom: 16px;
         "
       >
         美络 AI-Studio
@@ -25,12 +30,9 @@
       <p
         class="description"
         style="
-          position: absolute;
-          top: 44%;
-          left: 36.7%;
-          transform: translate(-50%, -50%);
           font-size: 18px;
           color: #666;
+          padding-bottom: 16px;
         "
       >
         轻量人工智能工具包 集成OpenAI的API的选择器项
@@ -41,16 +43,13 @@
         @click.native="goToOtherPage"
         :loading="loading"
         style="
-          position: absolute;
-          top: 64%;
-          left: 30.4%;
-          transform: translate(-50%, -50%);
           font-size: 14px;
           color: white;
         "
         ><i class="el-icon-edit" style="margin-right: 12px"></i
         >开始创作</el-button
       >
+      </div>
     </div>
 
     <div class="content">
@@ -173,4 +172,5 @@ export default {
   border-color: #00bfff;
   filter: brightness(110%); /* 使颜色减淡 10% */
 }
+
 </style>
