@@ -26,7 +26,7 @@ async def index():
 
 
 #  将 YOUR_API_KEY 替换为您的实际 API 密钥
-openai.api_key = "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"
+openai.api_key = ""
 
 #  设置API请求的URL和参数
 url = "https://api.openai.com/v1/chat/completions"
