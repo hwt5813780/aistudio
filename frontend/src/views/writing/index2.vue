@@ -243,7 +243,7 @@ export default {
       } else {
         // 请求后端API服务，请求方法为post，请求体字段为json格式 text
         axios
-          .post("http://127.0.0.1:8000/api/gpt/pdca", {
+          .post("http://172.21.108.57:8000/api/gpt/pdca", {
             value: that.value,
             input: that.input,
             textarea: that.textarea,
