@@ -26,7 +26,7 @@ async def index():
 
 
 #  将 YOUR_API_KEY 替换为您的实际 API 密钥
-openai.api_key = "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"
+openai.api_key = "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"
 
 #  设置API请求的URL和参数
 url = "https://api.openai.com/v1/chat/completions"
@@ -226,7 +226,9 @@ def chat(prompt):  # 定义一个函数
                 "temperature": 0,
                 "messages": [
                     {"role": "system",
-                        "content": "你是一个信息提取机器人，接下来我会用：“A：内容//B：信息提示”给你多个prompt，你需要返回给我一个数组，数组的格式为：[{\"prompt\":\"prompt的内容\",\"value\":\"提取的内容\"}]"},
+                        "content": "你是一个信息提取机器人，接下来我会用：“A：内容//B：信息提示”给你多个prompt，\
+                            你需要返回给我一个数组，数组的格式为：\
+                                [{\"prompt\":\"prompt的内容\",\"value\":\"提取的内容\"}]"},
                     {"role": "user", "content": "A：甲方购房总价款是12000元，税费为3%//B：甲方购房总价款，甲方购房税费"},
                     {"role": "assistant",
                         "content": "[{\"prompt\":\"甲方购房总价款\",\"value\":\"12000元\"},{\"prompt\":\"甲方购房税费\",\"value\":\"360元\"}]"},
@@ -261,7 +263,9 @@ def aicreate(value, input, prompt):  # 定义一个函数
                     "temperature": 1,
                     "messages": [
                         {"role": "system",
-                            "content": "你是一个编写日报的机器人，我会告诉你我今天大概的工作内容，你需要帮我完成markdown格式的日报，不需要显示日期，日报的内容需要包括以下这些内容的详细说明：工作成果，工时，经验总结，发现问题，改进措施。"},
+                            "content": "你是一个编写日报的机器人，我会告诉你我今天大概的工作内容，\
+                                你需要帮我完成markdown格式的日报，格式美观，不需要显示日期，日报的内容需要包括以下项：\
+                                    工作成果，工时，经验总结，发现问题，改进措施。每一项的内容包含多条有数字编号的详细说明"},
                         {"role": "user", "content": "项目标题："+input+"，工作概述："+prompt}
                     ]
                     }
@@ -270,7 +274,9 @@ def aicreate(value, input, prompt):  # 定义一个函数
                     "temperature": 1,
                     "messages": [
                         {"role": "system",
-                         "content": "你是一个编写团建活动报告的机器人，我会告诉你我团建的主题和其他提示信息，你需要帮我完成markdown格式的团建活动报告的编写，内容要包括活动日期，参加人员，过程，活动的心得体会等等"},
+                         "content": "你是一个编写团建活动报告的机器人，我会告诉你我团建的主题和其他提示信息，\
+                             你需要帮我完成markdown格式的团建活动报告的编写，要求格式美观，内容丰富，积极向上\
+                                 内容要包括活动日期，参加人员，过程，活动的心得体会等等"},
                         {"role": "user", "content": "团建活动标题："+input+"，活动内容提示："+prompt}
                     ]
                     }
@@ -279,7 +285,10 @@ def aicreate(value, input, prompt):  # 定义一个函数
                     "top_p": 0,
                     "messages": [
                         {"role": "system",
-                         "content": "你是一个分析体检健康数据的机器人，我会告诉你体检者的一些数据指标，你需要根据指标帮我完成markdown格式的专业健康分析报告，包括每个指标的解读，每项指标检测结果的分析说明，造成结果数值的可能原因以及可能的病症，以及针对每项结果的合理化建议"},
+                         "content": "你是一个分析体检健康数据的机器人，我会告诉你体检者的一些数据指标，\
+                             你需要根据指标帮我完成markdown格式的专业健康分析报告，包括每个指标的解读，\
+                                 每项指标检测结果的分析说明，造成结果数值的可能原因以及可能的病症，\
+                                     以及针对每项结果的合理化建议"},
                         {"role": "user", "content": prompt}
                     ]
                     }
