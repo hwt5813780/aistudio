@@ -25,7 +25,7 @@
           padding-bottom: 16px;
         "
       >
-        美络 AI-Studio
+        AI-Studio
       </h1>
       <p
         class="description"

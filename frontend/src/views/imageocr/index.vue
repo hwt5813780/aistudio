@@ -120,7 +120,7 @@ export default {
       })
       this.imageUrl = URL.createObjectURL(file.file)
       console.log(this.imageUrl)
-      
+
     },
     // 保存识别结果
     saveResult() {
@@ -158,7 +158,7 @@ export default {
       var form = new FormData()
       form.append('file', that.fileData)
       // 请求后端API服务，请求方法为post
-      axios.post('http://172.21.108.57:8000/api/ocr/crn', form, config).then((response) => {
+      axios.post('http://localhost:8000/api/ocr/crn', form, config).then((response) => {
         console.log(response)
         that.textarea = response.data.correctionResults
         console.log(that.text)

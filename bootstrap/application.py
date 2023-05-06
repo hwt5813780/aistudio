@@ -1,7 +1,7 @@
 import logging
 
 from fastapi import FastAPI
-
+from fastapi.middleware.cors import CORSMiddleware
 from app.providers import app_provider
 from app.providers import logging_provider
 from app.providers import handle_exception
@@ -19,6 +19,13 @@ def create_app() -> FastAPI:
 
     boot(app, route_provider)
 
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
     return app
 
 

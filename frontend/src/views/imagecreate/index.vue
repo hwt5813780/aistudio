@@ -12,19 +12,23 @@
       />
       <div style="padding-top: 10px; padding-bottom: 10px">
         <el-button type="primary" @click="errorCorrect()" :loading="loading"
-          >开始创作</el-button
+        >开始创作
+        </el-button
         >
         <el-button
           type="basic"
           style="margin-left: 24px; margin-top: 16px"
           @click="handleDownload('text-demo')"
-          >导出图片</el-button
+        >导出图片
+        </el-button
         >
       </div>
       <el-image style="padding-top: 48px" :src="imageUrl">
         <template #error>
           <div class="image-slot">
-            <el-icon><icon-picture /></el-icon>
+            <el-icon>
+              <icon-picture/>
+            </el-icon>
           </div>
         </template>
       </el-image>
@@ -34,9 +38,9 @@
 
 <script>
 import axios from "axios";
-import { saveAs } from "file-saver";
+import {saveAs} from "file-saver";
 import FileSaver from "file-saver";
-import { write, utils } from "xlsx";
+import {write, utils} from "xlsx";
 
 export default {
   data() {
@@ -65,10 +69,11 @@ export default {
 
       try {
         FileSaver.saveAs(
-          new Blob([output], { type: "application/octet-stream" }),
+          new Blob([output], {type: "application/octet-stream"}),
           `${name}.xlsx`
         );
-      } catch (e) {}
+      } catch (e) {
+      }
 
       return output;
     },
@@ -87,13 +92,10 @@ export default {
         that.visible = false;
       } else {
         // 请求后端API服务，请求方法为post，请求体字段为json格式 text
-        axios
-          .post("http://172.21.108.57:8000/api/gpt/imageCreate", {
-            text: that.input, 
+        axios.post('http://localhost:8000/api/gpt/imageCreate', {
+            text: that.input,
             key: that.input
-
-          })
-          .then((response) => {
+          }).then((response) => {
             console.log(response);
             that.imageUrl = response.data.correctionResults
             console.log(that.imageUrl)
@@ -104,8 +106,7 @@ export default {
               message: "Success！",
               type: "success",
             });
-          })
-          .catch((error) => {
+          }).catch((error) => {
             console.log(error);
             that.result = "";
             that.visible = false;
@@ -133,7 +134,7 @@ export default {
       var that = this;
       rd.onload = (e) => {
         // this.readAsArrayBuffer函数内，会回调this.onload函数。在这里处理结果
-        const cont = rd.reading({ encode: "UTF-8" });
+        const cont = rd.reading({encode: "UTF-8"});
         console.log(cont);
         that.textarea = cont;
       };

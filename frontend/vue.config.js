@@ -24,6 +24,7 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
+
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
@@ -31,6 +32,7 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     port: port,
+    
     open: true, // 默认打开浏览器
     overlay: {
       warnings: false,
@@ -87,7 +89,7 @@ module.exports = {
             .plugin('ScriptExtHtmlWebpackPlugin')
             .after('html')
             .use('script-ext-html-webpack-plugin', [{
-            // `runtime` must same as runtimeChunk name. default is `runtime`
+              // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
             }])
             .end()

@@ -87,23 +87,21 @@
             placeholder=""
             clearable
           />
-          
         </div>
         <div style="padding-top: 10px; padding-bottom: 10px; width: 100%">
           <el-button
             type="basic"
             style="margin-top: 16px; width: 36%"
             @click="handleback()"
-            >返回首页</el-button
-          >
+            >返回首页
+          </el-button>
           <el-button
             type="primary"
             @click="errorCorrect()"
             :loading="loading"
             style="width: 60%"
-            ><i class="el-icon-edit" style="margin-right: 12px"></i
-            >开始创作</el-button
-          >
+            ><i class="el-icon-edit" style="margin-right: 12px"></i>开始创作
+          </el-button>
         </div>
       </div>
     </el-col>
@@ -116,10 +114,7 @@
       "
       class="el-col-right"
     >
-      <div
-        v-loading="loading"
-        style="margin: 24px; height: 95%"
-      >
+      <div v-loading="loading" style="margin: 24px; height: 95%">
         <v-md-editor v-model="text" height="100%"></v-md-editor>
       </div>
     </el-col>
@@ -129,6 +124,7 @@
 <script>
 import { ref } from "vue";
 import axios from "axios";
+
 export default {
   props: {
     cardId: {
@@ -137,7 +133,9 @@ export default {
     },
   },
   created() {
-    if(this.cardId){this.value = this.cardId;}
+    if (this.cardId) {
+      this.value = this.cardId;
+    }
     //cardId进行一些逻辑处理
   },
   computed: {
@@ -224,9 +222,9 @@ export default {
       // 在选项点击后将label的值赋给input
       this.input = label;
     },
-    errorCorrect() {
+    async errorCorrect() {
       var that = this;
-      that.loading = true;
+      that.loading = false;
       var textarea = that.textarea;
       var value = that.value;
       var input = that.input;
@@ -243,7 +241,7 @@ export default {
       } else {
         // 请求后端API服务，请求方法为post，请求体字段为json格式 text
         axios
-          .post("http://172.21.108.57:8000/api/gpt/pdca", {
+          .post("http://localhost:8000/api/gpt/pdca", {
             value: that.value,
             input: that.input,
             textarea: that.textarea,
@@ -251,7 +249,6 @@ export default {
           .then((response) => {
             console.log(response);
             that.text = response.data.correctionResults;
-            console.log(that.imageUrl);
             that.visible = true;
             that.loading = false;
             that.$message({

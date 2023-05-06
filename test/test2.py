@@ -1,12 +1,13 @@
-import cv2
-import numpy as np
+import os
+import openai
+openai.api_key = "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"
+os.environ["http_proxy"] = "http://127.0.0.1:7890"
+os.environ["https_proxy"] = "http://127.0.0.1:7890"
+completion = openai.ChatCompletion.create(
+  model="gpt-3.5-turbo",
+  messages=[
+    {"role": "user", "content": "Hello!"}
+  ]
+)
 
-# 读入多张图片
-image1 = cv2.imread("test/2.jpg")
-image2 = cv2.imread("test/3.jpg")
-
-# 拼接图片
-result = np.hstack([image1, image2])
-
-# 保存拼接后的图片
-cv2.imwrite("test/long_image.jpg", result)
+print(completion.choices[0].message.content)

@@ -62,7 +62,6 @@ export default {
     }
   },
   methods: {
-
     //导出excel
     handleDownload(name) {
       let table = document.getElementById("excel_table")
@@ -94,9 +93,8 @@ export default {
         that.visible = false
       } else {
         // 请求后端API服务，请求方法为post，请求体字段为json格式 text
-        axios.post('http://172.21.108.57:8000/api/gpt/textCorrect', {
-          text: that.textarea,
-          key: that.input
+        axios.post('http://localhost:8000/api/gpt/textCorrect', {
+          text: that.textarea, key: that.input
         }).then((response) => {
           console.log(response)
           that.result = response.data.correctionResults.toString()

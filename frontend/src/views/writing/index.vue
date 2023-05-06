@@ -12,12 +12,12 @@
               border-radius: 10px;
             "
           >
-            <img src="@/assets/img/5.png" style="height: 96px; width: 96px" />
+            <img src="@/assets/img/5.png" style="height: 96px; width: 96px"/>
             <div>
               <span style="height: 30px; line-height: 30px; font-size: 16px"
-                >智能写作模板</span
+              >智能写作模板</span
               >
-              <br />
+              <br/>
               <span
                 style="
                   height: 30px;
@@ -25,7 +25,7 @@
                   font-size: 14px;
                   color: #b6b6b6;
                 "
-                >选择合适的创作类型</span
+              >选择合适的创作类型</span
               >
             </div>
           </div>
@@ -52,7 +52,7 @@
             style="margin-bottom: 6px"
           >
             <span class="menu-text"
-              ><i class="el-icon-s-order"></i>报告写作</span
+            ><i class="el-icon-s-order"></i>报告写作</span
             >
           </el-menu-item>
           <el-menu-item
@@ -61,7 +61,7 @@
             style="margin-bottom: 6px"
           >
             <span class="menu-text"
-              ><i class="el-icon-platform-eleme"></i>社媒写作</span
+            ><i class="el-icon-platform-eleme"></i>社媒写作</span
             >
           </el-menu-item>
           <el-menu-item
@@ -70,7 +70,7 @@
             style="margin-bottom: 6px"
           >
             <span class="menu-text"
-              ><i class="el-icon-s-custom"></i>教育（论文）</span
+            ><i class="el-icon-s-custom"></i>教育（论文）</span
             >
           </el-menu-item>
           <el-menu-item
@@ -86,7 +86,7 @@
             style="margin-bottom: 6px"
           >
             <span class="menu-text"
-              ><i class="el-icon-s-marketing"></i>营销广告</span
+            ><i class="el-icon-s-marketing"></i>营销广告</span
             >
           </el-menu-item>
           <el-menu-item
@@ -95,7 +95,7 @@
             style="margin-bottom: 6px"
           >
             <span class="menu-text"
-              ><i class="el-icon-s-management"></i>文学</span
+            ><i class="el-icon-s-management"></i>文学</span
             >
           </el-menu-item>
           <el-menu-item
@@ -104,7 +104,7 @@
             style="margin-bottom: 6px"
           >
             <span class="menu-text"
-              ><i class="el-icon-camera-solid"></i>短视频文案</span
+            ><i class="el-icon-camera-solid"></i>短视频文案</span
             >
           </el-menu-item>
         </el-menu>
@@ -200,7 +200,7 @@ export default {
   methods: {
     goToCardDetail(cardId) {
       if (cardId === 1 || cardId === 2 || cardId === 3) {
-        this.$router.push({ name: "CardDetail", params: { cardId: cardId } });
+        this.$router.push({name: "CardDetail", params: {cardId: cardId}});
       } else {
         this.$message({
           message: "当前的模板暂未开放",
